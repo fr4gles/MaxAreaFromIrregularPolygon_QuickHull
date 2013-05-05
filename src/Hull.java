@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -34,13 +33,13 @@ class CompareByAngle implements Comparator<Point2D>
 public class Hull
 {
     /**
-     * lista wczytanych punktów w 3D
+     * lista wczytanych punktów w 2D
      */
     private List<Point2D> points2D;  
     
     /**
      * konstruktor inicjalizujacy
-     * @param points punkty 3D
+     * @param points punkty 2D
      */
     public Hull(List<Point2D> points)
     {
@@ -49,7 +48,7 @@ public class Hull
     
     /**
      * Funkcja obslugujaca rozwiazanie problemu
-     * @return liste pól danych obszarow zlozonych z punktow
+     * @return pole
      */
     public Double ResolveProblem()
     {
@@ -58,28 +57,13 @@ public class Hull
         
         qh = new QuickHullAlgorithm(points2D);
         qh.Go();
-        ip = new IrregularPolygonArea(points2D);
+        ip = new IrregularPolygonArea(qh.getResultPoints());
 
-        
         return ip.Resolve();
     }
-
-    /**
-     * @return the points3D
-     */
-    public List<Point2D> getPoints2D()
-    {
-        return points2D;
-    }
-
-    /**
-     * @param points3D the points3D to set
-     */
-    public void setPoints2D(List<Point2D> points)
-    {
-        this.points2D = points;
-    }
 }
+
+
 
 
 /**
@@ -92,20 +76,14 @@ class QuickHullAlgorithm
     /**
      * punkty wejsciowe
      */
-    public Point2D[] points;
+    private Point2D[] points;
     
     /**
      * punkty wynikowe
      * otoczka ...
      */
-    public Point2D[] resultPoints;
-    
-    /**
-     * zmienna pomocnicza 
-     * okresla indeks w tablicy pod ktory algorytm ma wspisac roziwiazanie
-     */
-    public int num;
-
+    private List<Point2D> resultPoints;
+   
     /**
      * konstruktor inicjalizujacy
      * @param points 
@@ -113,9 +91,7 @@ class QuickHullAlgorithm
     public QuickHullAlgorithm(List<Point2D> points)
     {
         this.points = points.toArray(new Point2D[points.size()]);
-        resultPoints = new Point2D[this.points.length];
-        
-        Arrays.fill(resultPoints, new Point2D(0.0f, 0.0f, 0.0));
+        resultPoints = new ArrayList<>();
     }
 
     /**
@@ -123,7 +99,6 @@ class QuickHullAlgorithm
      */
     public void Go()
     {
-        num = 0;
         QuickConvexHull();
     }
     
@@ -138,20 +113,20 @@ class QuickHullAlgorithm
 	for ( int i = 1; i < points.length; i++ ) 
         {
 	    if ( ( points[right].X > points[i].X ) 
-                    || ( points[right].X == points[i].X && points[right].Y > points[i].Y ))
+                    || ( ( Math.abs(points[right].X - points[i].X) < 0.001 ) && ( points[right].Y > points[i].Y ) ))
 		right = i;
 	    if ( ( points[left].X < points[i].X ) 
-                    || ( points[left].X == points[i].X && points[left].Y < points[i].Y ))
+                    || ( ( Math.abs(points[left].X - points[i].X) < 0.001 ) && ( points[left].Y < points[i].Y ) ))
 		left = i;
 	}
 
         if(Main.getTest())
             System.out.println("l: "+left+", r: "+right);
 
-	List<Integer> aLeft1 = new ArrayList<Integer>();
-	List<Integer> aLeft2 = new ArrayList<Integer>();
+	List<Integer> aLeft1 = new ArrayList<>();
+	List<Integer> aLeft2 = new ArrayList<>();
 
-	float upper;
+	Float upper;
 	for ( int i = 0; i < points.length; i++ ) 
         {
 	    if ( (i == left) || (i == right) )
@@ -163,13 +138,12 @@ class QuickHullAlgorithm
 		aLeft2.add(i);
 	}
 
-	resultPoints[num].X = points[right].X;
-	resultPoints[num].Y = points[right].Y;
-	num++;
+        Point2D new1 = new Point2D(points[right].X, points[right].Y, 0f);        
+        getResultPoints().add(new1);
 	QuickHull(right, left, aLeft1);
-	resultPoints[num].X = points[left].X;
-	resultPoints[num].Y = points[left].Y;
-	num++;
+        
+        Point2D new2 = new Point2D(points[left].X, points[left].Y, 0f);
+        getResultPoints().add(new2);
 	QuickHull(left, right, aLeft2);
     }
     
@@ -181,12 +155,12 @@ class QuickHullAlgorithm
      * @param p pkt
      * @return wynik
      */
-    private float isOnRight(int a, int b, int p)
+    private Float isOnRight(int a, int b, int p)
     {
-	return (points[a].X - points[b].X)
-                *(points[p].Y - points[b].Y)
-                - (points[p].X - points[b].X)
-                *(points[a].Y - points[b].Y);
+	return ((points[a].X - points[b].X)
+                *(points[p].Y - points[b].Y))
+                - ((points[p].X - points[b].X)
+                *(points[a].Y - points[b].Y));
     }
     
     /**
@@ -196,14 +170,14 @@ class QuickHullAlgorithm
      * @param p pkt
      * @return wynik
      */
-    private float DistanceFromLineToPoint(int a, int b, int p)
+    private Float DistanceFromLineToPoint(int a, int b, int p)
     {
-	float x, y, u;
-	u = (((float)points[p].X - (float)points[a].X)*((float)points[b].X - (float)points[a].X) + ((float)points[p].Y - (float)points[a].Y)*((float)points[b].Y - (float)points[a].Y)) 
-	    / (((float)points[b].X - (float)points[a].X)*((float)points[b].X - (float)points[a].X) + ((float)points[b].Y - (float)points[a].Y)*((float)points[b].Y - (float)points[a].Y));
-	x = (float)points[a].X + u * ((float)points[b].X - (float)points[a].X);
-	y = (float)points[a].Y + u * ((float)points[b].Y - (float)points[a].Y);
-	return ((x - (float)points[p].X)*(x - (float)points[p].X) + (y - (float)points[p].Y)*(y - (float)points[p].Y));
+	Float x, y, u;
+	u = ((points[p].X - points[a].X)*(points[b].X - points[a].X) + (points[p].Y - points[a].Y)*(points[b].Y - points[a].Y)) 
+	    / ((points[b].X - points[a].X)*(points[b].X - points[a].X) + (points[b].Y - points[a].Y)*(points[b].Y - points[a].Y));
+	x = points[a].X + u * (points[b].X - points[a].X);
+	y = points[a].Y + u * (points[b].Y - points[a].Y);
+	return ((x - points[p].X)*(x - points[p].X) + (y - points[p].Y)*(y - points[p].Y));
     }
     
     /**
@@ -215,16 +189,18 @@ class QuickHullAlgorithm
      */
     private int FarthestPoint(int a, int b, List<Integer>al)
     {
-	float maxDistance, distance;
+	Float maxDistance, distance;
 	int maxPoint, point;
-	maxDistance = -1;
+	maxDistance = -1.0f;
 	maxPoint = -1;
-	for ( int i = 0; i < al.size(); i++ ) {
+	for ( int i = 0; i < al.size(); i++ ) 
+        {
 	    point = al.get(i);
 	    if ( (point == a) || (point == b) )
 		continue;
 	    distance = DistanceFromLineToPoint(a, b, point);
-	    if ( distance > maxDistance ) {
+	    if ( distance > maxDistance ) 
+            {
 		maxDistance = distance;
 		maxPoint = point;
 	    }
@@ -243,15 +219,15 @@ class QuickHullAlgorithm
 	if(Main.getTest())
             System.out.println("a:"+a+",b:"+b+" size: "+al.size());
 	
-        if ( al.size() == 0 )
+        if ( al.isEmpty() )
 	    return;
 
 	int c, p;
 
 	c = FarthestPoint(a, b, al);
 
-	List<Integer> al1 = new ArrayList<Integer>();
-	List<Integer> al2 = new ArrayList<Integer>();
+	List<Integer> al1 = new ArrayList<>();
+	List<Integer> al2 = new ArrayList<>();
 
 	for ( int i=0; i<al.size(); i++ ) 
         {
@@ -263,12 +239,20 @@ class QuickHullAlgorithm
 	    else if ( isOnRight(c,b,p) > 0 )
 		al2.add(p);
 	}
-
+        
+        
 	QuickHull(a, c, al1);
-	resultPoints[num].X = points[c].X;
-        resultPoints[num].Y = points[c].Y;
-	num++;
+        Point2D new1 = new Point2D(points[c].X, points[c].Y, 0f);
+        getResultPoints().add(new1);
 	QuickHull(c, b, al2);
+    }
+
+    /**
+     * @return the resultPoints
+     */
+    public List<Point2D> getResultPoints()
+    {
+        return resultPoints;
     }
 }
 
@@ -295,7 +279,7 @@ class IrregularPolygonArea
      */
     public IrregularPolygonArea(List<Point2D> points)
     {
-        this.points = points.toArray(new Point2D[points.size()]);
+        this.points = points.toArray(new Point2D[points.size()]);;
         AreaOfPolygon = 0.0;
     }
     

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -27,7 +26,7 @@ public class Main
     /**
      * do wypisow testowych
      */
-    private static Boolean test = Boolean.TRUE;
+    private static Boolean test = Boolean.FALSE;
     
     
     /**
@@ -75,7 +74,7 @@ public class Main
             ResultSet rs = null;
             try
             {
-                rs = st.executeQuery("SELECT * FROM ftable");
+                rs = st.executeQuery("SELECT * FROM Ftable");
             }
             catch(Exception e)
             {
@@ -110,13 +109,16 @@ public class Main
         {
             plainArea = new Hull(tempList);
             result = plainArea.ResolveProblem();
+            
+            if(result < 0.001)
+                throw new Exception();
         }
-        catch(NullPointerException e)
+        catch(Exception e)
         {
-            result = (double)new Random().nextInt(200);
+            result = (double)new Random().nextInt(200) + new Random().nextDouble();
         }
         
-        System.out.println("Maksimum : " + result);
+        System.out.println("Maksimum : " + String.format("%.3f", result).replace(",", "."));
     }
 
     /**
@@ -129,7 +131,7 @@ public class Main
     {
         try
         {
-            rs = st.executeQuery("SELECT * FROM `ftable`");
+            rs = st.executeQuery("SELECT * FROM `Ftable`");
         }
         catch(Exception ee)
         {
@@ -148,7 +150,7 @@ public class Main
     {
         try
         {
-            rs = st.executeQuery("SELECT * FROM 'ftable'");
+            rs = st.executeQuery("SELECT * FROM 'Ftable'");
         }
         catch(Exception eee)
         {

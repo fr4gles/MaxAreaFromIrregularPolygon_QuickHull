@@ -1,441 +1,161 @@
 use ztp;
 
+
 drop table ftable;
 
+
 CREATE TABLE ftable ( 
- x int NOT NULL, 
- y int NOT NULL, 
- z int NOT NULL,
- PRIMARY KEY (x,y)
+ id int NOT NULL, 
+ x float NOT NULL, 
+ y float NOT NULL,
+ PRIMARY KEY (id)
 )
 
-INSERT INTO ftable (x, y, z) VALUES
-(1, 1, 1),
-(1, 2, 1),
-(1, 3, 3),
-(1, 4, 4),
-(1, 5, 2),
-(2, 2, 3),
-(2, 3, 4),
-(2, 5, 4),
-(2, 8, 2),
-(3, 2, 4),
-(3, 4, 1),
-(3, 5, 2),
-(3, 6, 3),
-(4, 3, 3),
-(4, 6, 2),
-(4, 7, 1),
-(4, 8, 3),
-(5, 2, 1),
-(5, 5, 2),
-(5, 7, 4),
-(5, 9, 3),
-(6, 1, 4),
-(6, 2, 3),
-(6, 3, 2);
 
-select * from Ftable order by z;
+select * from ftable;
 
 
-INSERT INTO ftable (x, y, z) VALUES
-(1,1,2),
-(1,2,1),
-(1,3,9),
-(1,4,2),
-(1,5,9),
-(1,6,8),
-(1,7,9),
-(1,8,7),
-(1,9,3),
-(1,10,8),
-(1,11,4),
-(1,12,4),
-(1,13,2),
-(1,14,5),
-(1,15,5),
-(1,16,10),
-(1,17,1),
-(1,18,6),
-(1,19,10),
-(1,20,8),
-(2,1,1),
-(2,2,7),
-(2,3,7),
-(2,4,5),
-(2,5,3),
-(2,6,3),
-(2,7,3),
-(2,8,2),
-(2,9,7),
-(2,10,5),
-(2,11,7),
-(2,12,2),
-(2,13,9),
-(2,14,5),
-(2,15,3),
-(2,16,7),
-(2,17,10),
-(2,18,1),
-(2,19,4),
-(2,20,8),
-(3,1,8),
-(3,2,8),
-(3,3,10),
-(3,4,4),
-(3,5,8),
-(3,6,4),
-(3,7,3),
-(3,8,9),
-(3,9,7),
-(3,10,2),
-(3,11,8),
-(3,12,1),
-(3,13,3),
-(3,14,8),
-(3,15,6),
-(3,16,2),
-(3,17,1),
-(3,18,6),
-(3,19,4),
-(3,20,5),
-(4,1,9),
-(4,2,4),
-(4,3,3),
-(4,4,10),
-(4,5,3),
-(4,6,3),
-(4,7,10),
-(4,8,2),
-(4,9,10),
-(4,10,4),
-(4,11,2),
-(4,12,1),
-(4,13,7),
-(4,14,2),
-(4,15,8),
-(4,16,5),
-(4,17,10),
-(4,18,4),
-(4,19,1),
-(4,20,6),
-(5,1,5),
-(5,2,6),
-(5,3,3),
-(5,4,2),
-(5,5,1),
-(5,6,10),
-(5,7,6),
-(5,8,10),
-(5,9,9),
-(5,10,1),
-(5,11,1),
-(5,12,2),
-(5,13,8),
-(5,14,8),
-(5,15,4),
-(5,16,2),
-(5,17,4),
-(5,18,5),
-(5,19,4),
-(5,20,10),
-(6,1,7),
-(6,2,4),
-(6,3,8),
-(6,4,8),
-(6,5,10),
-(6,6,6),
-(6,7,1),
-(6,8,3),
-(6,9,10),
-(6,10,10),
-(6,11,2),
-(6,12,6),
-(6,13,4),
-(6,14,5),
-(6,15,10),
-(6,16,5),
-(6,17,7),
-(6,18,9),
-(6,19,5),
-(6,20,3),
-(7,1,4),
-(7,2,3),
-(7,3,2),
-(7,4,4),
-(7,5,6),
-(7,6,3),
-(7,7,1),
-(7,8,4),
-(7,9,8),
-(7,10,8),
-(7,11,7),
-(7,12,9),
-(7,13,7),
-(7,14,6),
-(7,15,5),
-(7,16,3),
-(7,17,10),
-(7,18,8),
-(7,19,6),
-(7,20,2),
-(8,1,7),
-(8,2,3),
-(8,3,4),
-(8,4,4),
-(8,5,8),
-(8,6,1),
-(8,7,5),
-(8,8,3),
-(8,9,7),
-(8,10,10),
-(8,11,2),
-(8,12,1),
-(8,13,7),
-(8,14,7),
-(8,15,4),
-(8,16,5),
-(8,17,5),
-(8,18,9),
-(8,19,9),
-(8,20,1),
-(9,1,1),
-(9,2,5),
-(9,3,4),
-(9,4,7),
-(9,5,5),
-(9,6,4),
-(9,7,7),
-(9,8,5),
-(9,9,1),
-(9,10,9),
-(9,11,7),
-(9,12,3),
-(9,13,4),
-(9,14,1),
-(9,15,9),
-(9,16,7),
-(9,17,2),
-(9,18,1),
-(9,19,7),
-(9,20,6),
-(10,1,1),
-(10,2,2),
-(10,3,5),
-(10,4,5),
-(10,5,10),
-(10,6,5),
-(10,7,8),
-(10,8,5),
-(10,9,7),
-(10,10,1),
-(10,11,8),
-(10,12,9),
-(10,13,7),
-(10,14,3),
-(10,15,1),
-(10,16,4),
-(10,17,10),
-(10,18,7),
-(10,19,6),
-(10,20,10),
-(11,1,1),
-(11,2,5),
-(11,3,1),
-(11,4,2),
-(11,5,10),
-(11,6,9),
-(11,7,4),
-(11,8,9),
-(11,9,8),
-(11,10,7),
-(11,11,3),
-(11,12,4),
-(11,13,1),
-(11,14,5),
-(11,15,10),
-(11,16,5),
-(11,17,7),
-(11,18,8),
-(11,19,10),
-(11,20,2),
-(12,1,5),
-(12,2,5),
-(12,3,10),
-(12,4,10),
-(12,5,1),
-(12,6,3),
-(12,7,4),
-(12,8,4),
-(12,9,8),
-(12,10,10),
-(12,11,5),
-(12,12,8),
-(12,13,8),
-(12,14,10),
-(12,15,9),
-(12,16,3),
-(12,17,1),
-(12,18,4),
-(12,19,1),
-(12,20,1),
-(13,1,6),
-(13,2,9),
-(13,3,5),
-(13,4,6),
-(13,5,10),
-(13,6,2),
-(13,7,2),
-(13,8,3),
-(13,9,1),
-(13,10,8),
-(13,11,5),
-(13,12,9),
-(13,13,7),
-(13,14,2),
-(13,15,3),
-(13,16,2),
-(13,17,7),
-(13,18,3),
-(13,19,9),
-(13,20,7),
-(14,1,6),
-(14,2,4),
-(14,3,9),
-(14,4,6),
-(14,5,3),
-(14,6,3),
-(14,7,1),
-(14,8,4),
-(14,9,6),
-(14,10,9),
-(14,11,8),
-(14,12,10),
-(14,13,8),
-(14,14,4),
-(14,15,8),
-(14,16,9),
-(14,17,8),
-(14,18,1),
-(14,19,5),
-(14,20,4),
-(15,1,4),
-(15,2,10),
-(15,3,9),
-(15,4,2),
-(15,5,2),
-(15,6,2),
-(15,7,5),
-(15,8,2),
-(15,9,2),
-(15,10,3),
-(15,11,2),
-(15,12,2),
-(15,13,5),
-(15,14,1),
-(15,15,7),
-(15,16,9),
-(15,17,6),
-(15,18,9),
-(15,19,5),
-(15,20,5),
-(16,1,6),
-(16,2,3),
-(16,3,7),
-(16,4,2),
-(16,5,4),
-(16,6,4),
-(16,7,2),
-(16,8,6),
-(16,9,5),
-(16,10,5),
-(16,11,6),
-(16,12,10),
-(16,13,8),
-(16,14,9),
-(16,15,7),
-(16,16,1),
-(16,17,10),
-(16,18,9),
-(16,19,8),
-(16,20,2),
-(17,1,1),
-(17,2,9),
-(17,3,10),
-(17,4,4),
-(17,5,8),
-(17,6,10),
-(17,7,5),
-(17,8,4),
-(17,9,1),
-(17,10,7),
-(17,11,1),
-(17,12,8),
-(17,13,5),
-(17,14,7),
-(17,15,10),
-(17,16,10),
-(17,17,9),
-(17,18,9),
-(17,19,8),
-(17,20,1),
-(18,1,3),
-(18,2,4),
-(18,3,6),
-(18,4,2),
-(18,5,2),
-(18,6,4),
-(18,7,7),
-(18,8,5),
-(18,9,10),
-(18,10,3),
-(18,11,6),
-(18,12,8),
-(18,13,2),
-(18,14,2),
-(18,15,7),
-(18,16,5),
-(18,17,8),
-(18,18,10),
-(18,19,5),
-(18,20,6),
-(19,1,9),
-(19,2,1),
-(19,3,7),
-(19,4,8),
-(19,5,9),
-(19,6,7),
-(19,7,7),
-(19,8,1),
-(19,9,3),
-(19,10,6),
-(19,11,6),
-(19,12,4),
-(19,13,5),
-(19,14,6),
-(19,15,1),
-(19,16,7),
-(19,17,9),
-(19,18,9),
-(19,19,5),
-(19,20,5),
-(20,1,9),
-(20,2,3),
-(20,3,6),
-(20,4,9),
-(20,5,5),
-(20,6,10),
-(20,7,4),
-(20,8,3),
-(20,9,5),
-(20,10,1),
-(20,11,6),
-(20,12,2),
-(20,13,10),
-(20,14,2),
-(20,15,2),
-(20,16,5),
-(20,17,4),
-(20,18,7),
-(20,19,3),
-(20,20,10);
+INSERT INTO ftable (id,x,y) VALUES
+(0,0.5,0.5),
+(1,2.5,1.5),
+(2,0.5,1.5),
+(3,2.5,0.5);
+
+
+INSERT INTO ftable (id,x,y) VALUES (0,30.822,18.5972);
+INSERT INTO ftable (id,x,y) VALUES (1,24.6163,0.279215);
+INSERT INTO ftable (id,x,y) VALUES (2,9.59192,14.9738);
+INSERT INTO ftable (id,x,y) VALUES (3,1.68939,36.4646);
+INSERT INTO ftable (id,x,y) VALUES (4,11.8508,5.80545);
+INSERT INTO ftable (id,x,y) VALUES (5,17.5088,3.43136);
+INSERT INTO ftable (id,x,y) VALUES (6,10.4486,20.624);
+INSERT INTO ftable (id,x,y) VALUES (7,11.8417,36.2053);
+INSERT INTO ftable (id,x,y) VALUES (8,16.8104,27.8403);
+INSERT INTO ftable (id,x,y) VALUES (9,43.9469,31.6553);
+INSERT INTO ftable (id,x,y) VALUES (10,13.2789,5.21679);
+INSERT INTO ftable (id,x,y) VALUES (11,1.98078,20.8753);
+INSERT INTO ftable (id,x,y) VALUES (12,16.7961,31.502);
+INSERT INTO ftable (id,x,y) VALUES (13,30.5943,17.852);
+INSERT INTO ftable (id,x,y) VALUES (14,3.22127,45.4751);
+INSERT INTO ftable (id,x,y) VALUES (15,27.0322,20.006);
+INSERT INTO ftable (id,x,y) VALUES (16,4.37343,41.3257);
+INSERT INTO ftable (id,x,y) VALUES (17,46.9742,22.541);
+INSERT INTO ftable (id,x,y) VALUES (18,1.01498,28.9876);
+INSERT INTO ftable (id,x,y) VALUES (19,16.5751,39.2433);
+INSERT INTO ftable (id,x,y) VALUES (20,48.9187,26.2069);
+INSERT INTO ftable (id,x,y) VALUES (21,10.2857,25.2281);
+INSERT INTO ftable (id,x,y) VALUES (22,45.2543,7.99364);
+INSERT INTO ftable (id,x,y) VALUES (23,3.81732,31.9479);
+INSERT INTO ftable (id,x,y) VALUES (24,13.5674,24.1993);
+INSERT INTO ftable (id,x,y) VALUES (25,24.4722,45.8982);
+INSERT INTO ftable (id,x,y) VALUES (26,6.28547,38.5757);
+INSERT INTO ftable (id,x,y) VALUES (27,33.5723,31.2635);
+INSERT INTO ftable (id,x,y) VALUES (28,9.05834,12.3898);
+INSERT INTO ftable (id,x,y) VALUES (29,47.1036,44.1466);
+
+
+
+
+
+
+
+INSERT INTO ftable (id,x,y) VALUES (0,-39.9348,43.8128);
+INSERT INTO ftable (id,x,y) VALUES (1,13.1887,0.768077);
+INSERT INTO ftable (id,x,y) VALUES (2,27.0649,-38.6696);
+INSERT INTO ftable (id,x,y) VALUES (3,49.6603,7.10017);
+INSERT INTO ftable (id,x,y) VALUES (4,46.4651,38.1305);
+INSERT INTO ftable (id,x,y) VALUES (5,17.714,49.2651);
+INSERT INTO ftable (id,x,y) VALUES (6,13.5855,15.4242);
+INSERT INTO ftable (id,x,y) VALUES (7,37.8266,22.3468);
+INSERT INTO ftable (id,x,y) VALUES (8,-37.1861,47.9808);
+INSERT INTO ftable (id,x,y) VALUES (9,-6.75099,-35.5549);
+INSERT INTO ftable (id,x,y) VALUES (10,-28.5323,39.1467);
+INSERT INTO ftable (id,x,y) VALUES (11,-36.8665,-16.8687);
+INSERT INTO ftable (id,x,y) VALUES (12,42.0954,-18.1444);
+INSERT INTO ftable (id,x,y) VALUES (13,-17.0374,44.9472);
+INSERT INTO ftable (id,x,y) VALUES (14,45.7449,44.9928);
+INSERT INTO ftable (id,x,y) VALUES (15,-13.499,10.5345);
+INSERT INTO ftable (id,x,y) VALUES (16,31.7507,-25.0853);
+INSERT INTO ftable (id,x,y) VALUES (17,43.4025,-22.724);
+INSERT INTO ftable (id,x,y) VALUES (18,7.30497,-48.9089);
+INSERT INTO ftable (id,x,y) VALUES (19,-6.82291,46.3937);
+INSERT INTO ftable (id,x,y) VALUES (20,-44.7287,15.996);
+INSERT INTO ftable (id,x,y) VALUES (21,-5.27169,-35.8818);
+INSERT INTO ftable (id,x,y) VALUES (22,27.0462,28.6151);
+INSERT INTO ftable (id,x,y) VALUES (23,6.05338,16.5492);
+INSERT INTO ftable (id,x,y) VALUES (24,-44.1892,-49.9317);
+INSERT INTO ftable (id,x,y) VALUES (25,32.168,10.2533);
+INSERT INTO ftable (id,x,y) VALUES (26,28.7368,13.4179);
+INSERT INTO ftable (id,x,y) VALUES (27,16.8842,2.96157);
+INSERT INTO ftable (id,x,y) VALUES (28,17.8015,-45.1375);
+INSERT INTO ftable (id,x,y) VALUES (29,-10.5937,-12.7383);
+INSERT INTO ftable (id,x,y) VALUES (30,39.4394,18.2016);
+INSERT INTO ftable (id,x,y) VALUES (31,-15.109,34.1626);
+INSERT INTO ftable (id,x,y) VALUES (32,-47.7914,-49.1688);
+INSERT INTO ftable (id,x,y) VALUES (33,-47.1742,10.8694);
+INSERT INTO ftable (id,x,y) VALUES (34,21.0587,19.4528);
+INSERT INTO ftable (id,x,y) VALUES (35,-48.6348,-21.3538);
+INSERT INTO ftable (id,x,y) VALUES (36,-40.3653,10.907);
+INSERT INTO ftable (id,x,y) VALUES (37,15.4488,-4.43739);
+INSERT INTO ftable (id,x,y) VALUES (38,35.583,-33.6681);
+INSERT INTO ftable (id,x,y) VALUES (39,11.5189,-49.8673);
+INSERT INTO ftable (id,x,y) VALUES (40,16.2713,46.072);
+INSERT INTO ftable (id,x,y) VALUES (41,16.1883,-36.4063);
+INSERT INTO ftable (id,x,y) VALUES (42,2.02813,-20.9961);
+INSERT INTO ftable (id,x,y) VALUES (43,-26.1645,14.4648);
+INSERT INTO ftable (id,x,y) VALUES (44,-26.7532,0.332299);
+INSERT INTO ftable (id,x,y) VALUES (45,-43.6253,-2.84108);
+INSERT INTO ftable (id,x,y) VALUES (46,15.5915,49.4669);
+INSERT INTO ftable (id,x,y) VALUES (47,-32.3054,49.4519);
+INSERT INTO ftable (id,x,y) VALUES (48,21.6565,26.6157);
+INSERT INTO ftable (id,x,y) VALUES (49,12.4776,44.0773);
+INSERT INTO ftable (id,x,y) VALUES (50,-12.024,-17.6591);
+INSERT INTO ftable (id,x,y) VALUES (51,-43.9141,-17.084);
+INSERT INTO ftable (id,x,y) VALUES (52,-8.9431,-5.72134);
+INSERT INTO ftable (id,x,y) VALUES (53,-13.1491,11.8574);
+INSERT INTO ftable (id,x,y) VALUES (54,22.7277,-46.1568);
+INSERT INTO ftable (id,x,y) VALUES (55,-47.666,-30.24);
+INSERT INTO ftable (id,x,y) VALUES (56,7.37362,1.83396);
+INSERT INTO ftable (id,x,y) VALUES (57,-24.9897,-19.6615);
+INSERT INTO ftable (id,x,y) VALUES (58,-28.5868,-10.6473);
+INSERT INTO ftable (id,x,y) VALUES (59,-29.0915,47.8417);
+INSERT INTO ftable (id,x,y) VALUES (60,-6.61458,-7.04362);
+INSERT INTO ftable (id,x,y) VALUES (61,-29.9986,-45.9585);
+INSERT INTO ftable (id,x,y) VALUES (62,33.0402,2.0124);
+INSERT INTO ftable (id,x,y) VALUES (63,25.0501,43.9933);
+INSERT INTO ftable (id,x,y) VALUES (64,-11.5281,-41.4708);
+INSERT INTO ftable (id,x,y) VALUES (65,-31.852,22.6041);
+INSERT INTO ftable (id,x,y) VALUES (66,37.4034,-11.2633);
+INSERT INTO ftable (id,x,y) VALUES (67,13.6582,14.3198);
+INSERT INTO ftable (id,x,y) VALUES (68,-9.90231,38.0997);
+INSERT INTO ftable (id,x,y) VALUES (69,47.6397,-3.1131);
+INSERT INTO ftable (id,x,y) VALUES (70,-13.9468,-49.6721);
+INSERT INTO ftable (id,x,y) VALUES (71,-15.3047,45.479);
+INSERT INTO ftable (id,x,y) VALUES (72,15.3802,-3.91987);
+INSERT INTO ftable (id,x,y) VALUES (73,2.19219,-18.031);
+INSERT INTO ftable (id,x,y) VALUES (74,-34.7389,-26.9502);
+INSERT INTO ftable (id,x,y) VALUES (75,40.8857,36.3254);
+INSERT INTO ftable (id,x,y) VALUES (76,-49.8442,11.4799);
+INSERT INTO ftable (id,x,y) VALUES (77,-17.3816,37.1332);
+INSERT INTO ftable (id,x,y) VALUES (78,-26.7627,-22.8258);
+INSERT INTO ftable (id,x,y) VALUES (79,35.8922,21.7009);
+INSERT INTO ftable (id,x,y) VALUES (80,42.0158,-37.4522);
+INSERT INTO ftable (id,x,y) VALUES (81,1.27917,20.6772);
+INSERT INTO ftable (id,x,y) VALUES (82,36.3116,-49.8729);
+INSERT INTO ftable (id,x,y) VALUES (83,-31.483,-12.3297);
+INSERT INTO ftable (id,x,y) VALUES (84,31.5253,-27.3124);
+INSERT INTO ftable (id,x,y) VALUES (85,-4.55239,4.43443);
+INSERT INTO ftable (id,x,y) VALUES (86,-48.1742,17.941);
+INSERT INTO ftable (id,x,y) VALUES (87,-26.1766,-26.7946);
+INSERT INTO ftable (id,x,y) VALUES (88,30.2129,-27.7339);
+INSERT INTO ftable (id,x,y) VALUES (89,-23.9839,-25.7293);
+INSERT INTO ftable (id,x,y) VALUES (90,17.6149,23.0397);
+INSERT INTO ftable (id,x,y) VALUES (91,34.2934,4.06973);
+INSERT INTO ftable (id,x,y) VALUES (92,-4.91608,-40.7999);
+INSERT INTO ftable (id,x,y) VALUES (93,45.4955,10.2106);
+INSERT INTO ftable (id,x,y) VALUES (94,-35.6579,46.0281);
+INSERT INTO ftable (id,x,y) VALUES (95,-49.7819,47.5874);
+INSERT INTO ftable (id,x,y) VALUES (96,8.50284,-16.6329);
+INSERT INTO ftable (id,x,y) VALUES (97,31.5605,1.58264);
+INSERT INTO ftable (id,x,y) VALUES (98,10.6839,-8.9615);
+INSERT INTO ftable (id,x,y) VALUES (99,36.5625,-14.3153);
